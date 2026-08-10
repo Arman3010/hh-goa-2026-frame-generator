@@ -1,72 +1,71 @@
 import { useState } from "react";
-import { generateFramedImage } from "./engine";
+import { loadImageFile } from "./engine";
+import UploadScreen from "./components/UploadScreen";
+import EditorScreen from "./components/EditorScreen";
+import ResultScreen from "./components/ResultScreen";
+import BeachScene from "./components/BeachScene";
+import ClosingFooter from "./components/ClosingFooter";
 
 function App() {
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [screen, setScreen] = useState("upload");
+  const [image, setImage] = useState(null);
   const [status, setStatus] = useState("idle");
+  const [result, setResult] = useState(null);
 
-  async function handleFileChange(e) {
-    const file = e.target.files[0];
-
-    if (!file) return;
-
+  async function handleFileSelected(file) {
     setStatus("loading");
 
     try {
-      // Temporary placeholder frame
-      const frameUrl = "/test-frame.svg";
-
-      const blob = await generateFramedImage(
-        file,
-        null,
-        frameUrl
-      );
-
-      setPreviewUrl(
-        URL.createObjectURL(blob)
-      );
-
+      const loadedImage = await loadImageFile(file);
+      setImage(loadedImage);
+      setScreen("editor");
       setStatus("ready");
-    } catch (err) {
-      console.error(err);
-
-      setStatus(
-        "error: " + err.message
-      );
+    } catch (error) {
+      console.error(error);
+      setStatus(`error: ${error.message}`);
     }
   }
 
+  function handleEditorDone(data) {
+    setResult(data);
+    setScreen("result");
+  }
+
+  function handleRestart() {
+    setImage(null);
+    setResult(null);
+    setScreen("upload");
+    setStatus("idle");
+  }
+
   return (
-    <div
-      style={{
-        padding: 40,
-        fontFamily: "sans-serif",
-      }}
-    >
-      <h2>
-        Engine Test Harness — Member 1
-      </h2>
+    <div className="min-h-screen w-full max-w-full overflow-hidden bg-hh-green px-3 py-3 sm:px-6 sm:py-7">
+      <div className="hh-pattern-border mx-auto h-4 w-full border-x-2 border-hh-yellow" aria-hidden="true" />
+      <main className="relative z-10 mx-auto w-full max-w-full overflow-hidden">
+        {screen === "upload" && (
+          <UploadScreen onFileSelected={handleFileSelected} status={status} />
+        )}
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
+        {screen === "editor" && (
+          <EditorScreen
+            image={image}
+            initialZoom={result?.zoom}
+            initialPan={result?.pan}
+            onDone={handleEditorDone}
+          />
+        )}
 
-      <p>
-        Status: {status}
-      </p>
-
-      {previewUrl && (
-        <img
-          src={previewUrl}
-          alt="preview"
-          style={{
-            width: 300,
-            marginTop: 20,
-          }}
-        />
-      )}
+        {screen === "result" && (
+          <ResultScreen
+            result={result}
+            onAdjust={() => setScreen("editor")}
+            onRestart={handleRestart}
+          />
+        )}
+      </main>
+      <BeachScene />
+      <ClosingFooter />
+      <div className="hh-pattern-border relative z-10 mx-auto h-4 w-full border-x-2 border-hh-yellow" aria-hidden="true" />
     </div>
   );
 }

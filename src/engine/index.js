@@ -4,7 +4,7 @@ import {
   drawPhoto,
   drawFrame,
 } from "./canvasEngine";
-import { canvasToBlob } from "./exportImage";
+import { canvasToBlob, downloadBlob } from "./exportImage";
 
 export async function generateFramedImage(
   file,
@@ -42,4 +42,6 @@ export {
   getInitialFit,
   drawPhoto,
   drawFrame,
+  canvasToBlob,
+  downloadBlob,
 };
