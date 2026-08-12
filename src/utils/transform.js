@@ -27,6 +27,45 @@ export function computeTransform(image, zoom, pan, canvasSize = 1080) {
 }
 
 /**
+ * Returns the furthest distance an image may be moved from its fitted
+ * position while still covering every edge of the square crop area.
+ */
+export function getPanBounds(image, zoom, canvasSize = 1080) {
+  const base = getInitialFit(image, canvasSize);
+  const scale = base.scale * clampZoom(zoom);
+
+  return {
+    maxX: Math.max(0, (image.naturalWidth * scale - canvasSize) / 2),
+    maxY: Math.max(0, (image.naturalHeight * scale - canvasSize) / 2),
+  };
+}
+
+/**
+ * Keeps a dragged image over the entire crop area. Without this clamp, a
+ * photo can be dragged far enough to expose the canvas underneath it.
+ */
+export function clampPan(image, zoom, pan, canvasSize = 1080) {
+  const { maxX, maxY } = getPanBounds(image, zoom, canvasSize);
+
+  return {
+    dx: Math.min(Math.max(pan.dx, -maxX), maxX),
+    dy: Math.min(Math.max(pan.dy, -maxY), maxY),
+  };
+}
+
+/**
+ * Preserve the currently selected part of the image when its scale changes.
+ * Panning is stored in canvas pixels, so it must be scaled inversely with
+ * zoom to keep the crop centred on the same image point.
+ */
+export function panForZoom(pan, previousZoom, nextZoom) {
+  return {
+    dx: pan.dx * (previousZoom / nextZoom),
+    dy: pan.dy * (previousZoom / nextZoom),
+  };
+}
+
+/**
  * Never allow zooming out below auto-fit (zoom < 1) — that would
  * shrink the photo inside the frame and introduce empty borders,
  * which the brief explicitly disallows.

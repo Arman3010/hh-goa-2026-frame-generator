@@ -1,16 +1,31 @@
-export default function BrandMark() {
+import PropTypes from "prop-types";
+
+export default function BrandMark({ className = "", compact = false }) {
   return (
-    <div className="relative h-11 w-[15rem] shrink-0 sm:h-15 sm:w-[21rem]" aria-label="Hacker House Goa">
+    <div
+      className={`relative shrink-0 ${
+        compact
+          ? "h-9 w-[11.5rem] sm:h-10 sm:w-[13.5rem]"
+          : "h-10 w-[13rem] sm:h-12 sm:w-[18rem] md:h-14 md:w-[20rem]"
+      } ${className}`}
+      aria-label="Hacker House Goa"
+    >
       <img
         src="/hhgoa-hacker-house.png"
         alt="Hacker House"
-        className="absolute left-0 top-1/2 h-10 w-auto -translate-y-1/2 sm:h-14"
+        className="absolute inset-0 size-full object-contain object-left"
       />
       <img
         src="/hhgoa-goa-hindi.svg"
-        alt="Goa"
-        className="absolute left-[5rem] top-[0.15rem] h-5 w-auto object-contain sm:left-[7.4rem] sm:top-[0.25rem] sm:h-7"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[43%] top-[1%] z-10 h-[72%] w-auto max-w-[34%] object-contain"
       />
     </div>
   );
 }
+
+BrandMark.propTypes = {
+  className: PropTypes.string,
+  compact: PropTypes.bool,
+};

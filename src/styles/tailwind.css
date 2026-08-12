@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Courier New", Courier, monospace;
-  --font-display: Georgia, "Times New Roman", serif;
-  --color-hh-green: rgb(11 104 57);
+  --font-sans: "IBM Plex Mono", "Courier New", Courier, monospace;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --color-hh-green: #0b6839;
   --color-hh-deep: #034523;
   --color-hh-cream: #fff9e8;
-  --color-hh-yellow: rgb(254 225 1);
+  --color-hh-yellow: #fee101;
   --color-hh-pink: #fa0079;
   --color-hh-leaf: #9bce5c;
-  --shadow-board: 9px 9px 0 #03351d;
+  --shadow-board: 8px 8px 0 #03351d;
 }
 
 @layer base {
@@ -18,23 +18,26 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
   }
 
   html,
   body {
     margin: 0;
     min-width: 320px;
+    max-width: 100%;
     min-height: 100vh;
-    background: rgb(11 104 57);
+    min-height: 100svh;
+    background: #0b6839;
     color: #fff9e8;
-    overflow-x: clip !important;
+    font-family: var(--font-sans);
+    overflow-x: clip;
   }
 
   #root {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip !important;
+    overflow-x: clip;
+    min-height: 100svh;
   }
 
   *,
@@ -52,61 +55,78 @@
 
   p,
   h1,
-  h2 {
+  h2,
+  h3 {
     overflow-wrap: anywhere;
   }
 
   button,
-  input {
+  input,
+  label {
     font: inherit;
   }
 
   button {
     -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
   }
 
   input[type="range"] {
     accent-color: #fa0079;
+    width: 100%;
   }
 }
 
+/* HH Goa site-style chevron strip */
 .hh-pattern-border {
   background-color: #034523;
   background-image:
     linear-gradient(45deg, transparent 43%, #fa0079 44% 56%, transparent 57%),
     linear-gradient(-45deg, transparent 43%, #ffdd00 44% 56%, transparent 57%);
-  background-size: 24px 24px;
+  background-size: 20px 20px;
 }
 
 .hh-paper-shadow {
   box-shadow: 7px 7px 0 #03351d;
 }
 
+.hh-btn-shadow {
+  box-shadow: 5px 5px 0 #fee101;
+}
+
+.hh-btn-shadow-pink {
+  box-shadow: 5px 5px 0 #fa0079;
+}
+
 @keyframes goa-float {
   0%,
   100% {
-    transform: translateY(0) rotate(-3deg);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px) rotate(2deg);
+    transform: translateY(-6px);
   }
 }
 
 .hh-goa-float {
   display: inline-block;
-  animation: goa-float 2.8s ease-in-out infinite;
-  font-family: Mangal, "Noto Serif Devanagari", Georgia, serif;
-}
-
-.hh-brand-wordmark {
-  font-family: Didot, "Bodoni 72", "Times New Roman", serif;
-  letter-spacing: -0.075em;
-  transform: scaleX(0.8);
-  transform-origin: left center;
+  will-change: transform;
+  animation: goa-float 2.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hh-goa-float {
     animation: none;
   }
+}
+
+/* Shared screen frame used on all steps */
+.hh-screen {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  border-left: 2px solid #fee101;
+  border-right: 2px solid #fee101;
+  border-bottom: 2px solid #fee101;
+  background: #0b6839;
 }
