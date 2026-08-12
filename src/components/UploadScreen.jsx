@@ -62,9 +62,8 @@ export default function UploadScreen({ onFileSelected, status }) {
 
           {/* Screenshot upload card — kept, position flexible */}
           <div
-            className={`w-full max-w-[34rem] justify-self-center overflow-hidden border-2 p-1 transition sm:p-1.5 lg:max-w-[42rem] lg:justify-self-end ${
-              isDragging ? "border-hh-pink bg-hh-pink" : "border-hh-yellow bg-hh-yellow"
-            }`}
+            className={`w-full max-w-[34rem] justify-self-center overflow-hidden border-2 p-1 transition sm:p-1.5 lg:max-w-[42rem] lg:justify-self-end ${isDragging ? "border-hh-pink bg-hh-pink" : "border-hh-yellow bg-hh-yellow"
+              }`}
             style={{ boxShadow: "8px 8px 0 #03351d" }}
             onDragEnter={(event) => {
               event.preventDefault();
@@ -97,9 +96,8 @@ export default function UploadScreen({ onFileSelected, status }) {
 
                 <div className="mt-6 w-full">
                   <label
-                    className={`hh-btn-shadow inline-flex min-h-11 w-full cursor-pointer items-center justify-center border-2 border-hh-deep bg-hh-pink px-5 py-3 text-center text-[13px] font-bold text-hh-cream transition hover:-translate-y-0.5 hover:bg-[#df006c] focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-hh-yellow sm:w-auto sm:text-sm lg:px-8 lg:py-4 lg:text-base ${
-                      isLoading ? "cursor-wait opacity-90" : ""
-                    }`}
+                    className={`hh-btn-shadow inline-flex min-h-11 w-full cursor-pointer items-center justify-center border-2 border-hh-deep bg-hh-pink px-5 py-3 text-center text-[13px] font-bold text-hh-cream transition hover:-translate-y-0.5 hover:bg-[#df006c] focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-hh-yellow sm:w-auto sm:text-sm lg:px-8 lg:py-4 lg:text-base ${isLoading ? "cursor-wait opacity-90" : ""
+                      }`}
                   >
                     {isLoading ? "READING PHOTO..." : "UPLOAD YOUR PHOTO"}
                     <input
