@@ -3,16 +3,21 @@ import {
   getInitialFit,
   drawPhoto,
   drawFrame,
+  drawFramedCanvas,
+  loadFrameImage,
 } from "./canvasEngine";
 import { canvasToBlob, downloadBlob } from "./exportImage";
+import { FRAME_CONFIG } from "../image/frameConfig";
 
 export async function generateFramedImage(
   file,
   transform,
-  frameImageUrl,
-  exportSize = 1080
+  frameImageUrl = FRAME_CONFIG.frameUrl,
+  exportSize = FRAME_CONFIG.canvasSize || 1080,
+  config = FRAME_CONFIG
 ) {
   const imageBitmap = await loadImageFile(file);
+  const frameImg = frameImageUrl ? await loadFrameImage(frameImageUrl) : null;
 
   const canvas = document.createElement("canvas");
 
@@ -20,19 +25,9 @@ export async function generateFramedImage(
   canvas.height = exportSize;
 
   const finalTransform =
-    transform ||
-    getInitialFit(imageBitmap, exportSize);
+    transform || getInitialFit(imageBitmap, exportSize);
 
-  drawPhoto(
-    canvas,
-    imageBitmap,
-    finalTransform
-  );
-
-  await drawFrame(
-    canvas,
-    frameImageUrl
-  );
+  drawFramedCanvas(canvas, imageBitmap, finalTransform, frameImg, config);
 
   return canvasToBlob(canvas);
 }
@@ -42,6 +37,8 @@ export {
   getInitialFit,
   drawPhoto,
   drawFrame,
+  drawFramedCanvas,
+  loadFrameImage,
   canvasToBlob,
   downloadBlob,
 };

@@ -1,17 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import { drawPhoto, drawFrame, canvasToBlob } from "../engine";
+import { drawFramedCanvas, loadFrameImage, canvasToBlob } from "../engine";
 import { clampPan, clampZoom, computeTransform, panForZoom } from "../utils/transform";
 import BrandMark from "./BrandMark";
+import { FRAME_CONFIG } from "../image/frameConfig";
 
-const FRAME_URL = "/test-frame.svg";
-const CANVAS_SIZE = 1080;
+const CANVAS_SIZE = FRAME_CONFIG.canvasSize || 1080;
 
 export default function EditorScreen({ image, initialZoom = 1, initialPan = { dx: 0, dy: 0 }, onDone }) {
   const canvasRef = useRef(null);
   const [zoom, setZoom] = useState(initialZoom);
   const [pan, setPan] = useState(initialPan);
+  const [frameImage, setFrameImage] = useState(null);
   const dragState = useRef(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (FRAME_CONFIG.frameUrl) {
+      loadFrameImage(FRAME_CONFIG.frameUrl)
+        .then((img) => {
+          if (isMounted) setFrameImage(img);
+        })
+        .catch((err) => console.error("Failed to load frame:", err));
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     setPan((currentPan) => clampPan(image, zoom, currentPan, CANVAS_SIZE));
@@ -20,9 +35,9 @@ export default function EditorScreen({ image, initialZoom = 1, initialPan = { dx
   useEffect(() => {
     if (!image || !canvasRef.current) return;
     const transform = computeTransform(image, zoom, pan, CANVAS_SIZE);
-    drawPhoto(canvasRef.current, image, transform);
-    drawFrame(canvasRef.current, FRAME_URL);
-  }, [image, zoom, pan]);
+    drawFramedCanvas(canvasRef.current, image, transform, frameImage, FRAME_CONFIG);
+  }, [image, zoom, pan, frameImage]);
+
 
   function handlePointerDown(event) {
     const bounds = event.currentTarget.getBoundingClientRect();
