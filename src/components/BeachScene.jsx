@@ -1,13 +1,13 @@
 export default function BeachScene() {
   return (
     <section
-      className="hh-screen relative isolate h-[70svh] w-full max-w-full overflow-hidden sm:h-[85svh] md:h-[100svh]"
+      className="hh-screen relative isolate min-h-[480px] w-full max-w-full overflow-hidden sm:min-h-[620px] md:min-h-[750px] lg:min-h-[850px]"
       aria-label="Hacker House Goa beach scene"
     >
       <img
         src="/hhgoa-sunrise.png"
         alt="Illustrated Goa beach sunrise with palms and a beach hut"
-        className="absolute inset-0 size-full max-w-none object-cover object-[center_40%]"
+        className="absolute inset-0 size-full max-w-none object-cover object-bottom"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-hh-green/50 via-hh-green/10 to-hh-green/30" />
 
@@ -20,11 +20,11 @@ export default function BeachScene() {
         </p>
       </div>
 
-      <div className="absolute inset-x-0 top-[24%] z-10 flex flex-col items-center gap-2 px-4 text-center sm:top-[20%] sm:px-8">
+      <div className="absolute inset-x-0 top-[14%] sm:top-[16%] z-10 flex flex-col items-center gap-2 px-4 text-center sm:px-8">
         <p className="text-[10px] font-bold tracking-[0.2em] text-hh-yellow sm:text-xs">
           BUILD · SHIP · SUNSET
         </p>
-        <p className="max-w-lg font-display text-[clamp(1.5rem,4.5vw,2.8rem)] font-black leading-[0.95] text-hh-cream">
+        <p className="max-w-lg font-display text-[clamp(1.5rem,4vw,2.6rem)] font-black leading-[0.95] text-hh-cream">
           OCEAN AT YOUR DOORSTEP.
           <br />
           FRAME READY.

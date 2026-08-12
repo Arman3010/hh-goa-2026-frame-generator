@@ -43,7 +43,7 @@ export default function UploadScreen({ onFileSelected, status }) {
             <p className="text-[10px] font-bold tracking-[0.16em] text-hh-yellow sm:text-xs sm:tracking-[0.2em]">
               HH GOA &apos;26 · PROFILE FRAME GENERATOR
             </p>
-            <h1 className="mt-3 font-display text-[clamp(2.35rem,8vw,5.75rem)] font-black leading-[0.88] text-hh-cream sm:mt-4 lg:text-[7.5rem]">
+            <h1 className="mt-3 font-display text-[clamp(1.85rem,5.5vw,4.25rem)] font-black leading-[0.9] text-hh-cream sm:mt-4 lg:text-[5rem]">
               MAKE YOUR
               <br />
               PROFILE

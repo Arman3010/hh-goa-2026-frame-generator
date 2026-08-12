@@ -19,7 +19,7 @@ export default function BrandMark({ className = "", compact = false }) {
         src="/hhgoa-goa-hindi.svg"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute left-[43%] top-[1%] z-10 h-[72%] w-auto max-w-[34%] object-contain"
+        className="pointer-events-none absolute left-[43%] top-[1%] z-10 h-[72%] w-auto max-w-[34%] object-contain hh-goa-float"
       />
     </div>
   );

@@ -53,7 +53,7 @@ export default function ResultScreen({ result, onAdjust, onRestart }) {
           <p className="mt-6 text-[11px] font-bold tracking-[0.16em] text-hh-yellow sm:mt-7 sm:text-sm">
             YOUR PROFILE FRAME IS READY
           </p>
-          <h1 className="mt-3 max-w-[12ch] font-display text-[clamp(2.8rem,7vw,5.6rem)] font-black leading-[0.88] text-hh-cream">
+          <h1 className="mt-3 max-w-[12ch] font-display text-[clamp(1.85rem,4.5vw,3.75rem)] font-black leading-[0.9] text-hh-cream lg:text-[4.25rem]">
             YOU&apos;RE GOA-READY.
           </h1>
           <p className="mt-4 max-w-xl text-[14px] leading-6 text-hh-cream sm:text-lg sm:leading-8">
